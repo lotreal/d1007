@@ -1,0 +1,12 @@
+<div id="following">
+  <h2 class="sidebar-title" id="fm_menu"><span>新进的朋友</span></h2>
+  <div class="sidebar-menu">
+    <div id="following_list">
+      {% for member in new_members %}
+      <a class="url" href="{% url tweet_profile member.screen_name %}" title="{{ member.name|default:member.screen_name }}">
+	<img width="24" height="24" src="{{ member.profile_image_url }}" class="photo fn" alt="{{ member.name|default:member.screen_name }}"/>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>

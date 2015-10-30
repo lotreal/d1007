@@ -1,0 +1,252 @@
+@import base.sass
+
+
+/* blueprint reset
++blueprint-global-reset
+/* blueprint grid
++blueprint-grid
+/* blueprint typography
++blueprint-typography
+/* blueprint scaffolding
++blueprint-scaffolding-defaults
+
+/* base template
+#start, #header, #footer, #page, #site-map, #wiki, #site-message, #tweet
+  +container
+  +iluo-block-margin
+
+#header
+  +iluo-block-margin(12px)
+  :overflow visible
+  :height 38px
+
+.homepage #header
+  +iluo-block-margin
+
+#page
+  //:padding 18px 0
+
+/* base template --- start
+body
+  :background
+    :color = !page_background_color
+    :image = !main_sprite_image
+    :repeat repeat-x
+    :position 50% -1365px
+  html.ie6 &
+    :background-image = !main_sprite_image_ie6
+
+h1
+  font-family: 'Microsoft JhengHei',微软雅黑, 黑体,'Segoe UI', Verdana, Arial
+  letter-spacing: 0.2em
+#start
+  +iluo-block-margin
+  color= !quiet_color
+  //border-bottom: 1px solid #E7E7E7
+  height: 21px
+  line-height: 16px
+  a
+    +quiet
+    :text-decoration none
+  ul
+    +inline-list
+    li
+      padding: 0 5px
+  ul.context-menu
+    +column(10)
+  ul.quickrun
+    +column(6, true)
+    +float-right
+    text-align: right
+
+/* base template --- header
+#nav
+  +iluo-menu-apple(!globalnav_button_num, !globalnav_button_width, !globalnav_button_height)
+  +float-left
+
+#snav
+  +iluo-menu-pro
+  +float-right
+
+#search
+  width = !blueprint_container_size - (!globalnav_button_width * !globalnav_button_num)
+  height = !globalnav_button_height
+  background-image = !main_sprite_image
+  background-position = - !globalnav_button_num * !globalnav_button_width !globalnav_sprinte_offset_y
+  background-repeat: no-repeat
+  +float-right
+  .active
+    background-position: !globalnav_button_num * !globalnav_button_width -1024px - 38px
+  #search-wrapper
+    position: relative
+    width: 183px
+    margin-top: 9px
+    margin-left: 48px
+    //+clearfix
+    .left, #search-input, .right
+      +float-left
+      background-image = !main_sprite_image
+      html.ie6 &
+        background-image = !main_sprite_image_ie6
+    .left 
+      width: 20px
+      height: 19px
+      background-position = -1000px 0
+    #search-input
+      width: 153px
+      height: 19px
+      border: none
+      font-size: 12px
+      color: #7E7E7E
+      background-position = -1020px 0
+      //padding: 3px 0 0 0
+    .right 
+      width: 10px
+      height: 19px
+      background-position = -1389px 0
+    input.search
+      border: none
+      background: transparent
+
+#search
+  +iluo-google-ajax-search
+
+html.ie6
+  #search #search-wrapper input.search
+    width: 143px
+
+/* base template --- footer
+#footer
+  :padding-top 32px
+  div
+    :padding 3px 0
+  hr
+    clear: both
+    :border-color white
+  .tips
+    +column(10)
+    a
+      :margin 0 0.5em
+
+  .shortcut
+    +column(6, true)
+    :text-align right
+    a
+      :margin 0.1em 0 0 0.5em
+
+  .copyright
+    +column(8)
+  .i18n
+    +column(8, true)
+    :line-height 27px
+    :text-align right
+    .brand-img
+      :vertical-align middle
+
+
+  
+
+/* homepage
+.homepage
+  .billboard, .subject, #news-minibar
+    +container
+  .subject p
+    +column(8)
+  .subject p.last
+    +column(8, true)
+
+/* wiki
+#wiki
+  +iluo-mediawiki-typography
+  //
+    padding: 30px 50px 30px
+    width= 982px - 50px * 2
+  
+/* site map
+#site-map
+  h1
+    :border-bottom 1px solid #D5D5D5
+    :padding-bottom 8px
+    :margin-bottom 0
+  
+  h2
+    :padding-top 32px
+    :border-bottom 1px solid #D5D5D5
+
+  ul
+    +inline-list
+    +clearfix
+    li
+      +column(5)
+
+  hr
+    :margin 36px 0
+
+/* site message
+#site-message
+  :padding 50px 0
+  :text-align center
+
+/* profile
+#page h1
+  +column(7)
+
+#profile-nav
+  +column(9, true)
+  +iluo-block-margin(6px)
+  :padding-top 12px
+
+label
+  +column(2)
+
+#choose-avatar label
+  +column(3)
+
+fieldset
+  :border 1px solid #CCCCCC
+  :margin 0 0 1.5em
+  :padding 1.4em
+  li
+    +clearfix
+
+#avatar
+  +column(3)
+
+#overview_details
+  +column(6)
+.overview_location
+  +prepend(1)
+
+
+#content-main
+  +column(10)
+
+#content_related
+  +column(6, true)
+
+div#map
+  :height 320px
+  :width 480px
+
+div.box a
+  :line-height 2.4em
+
+
+/* tweet
+body.tweet
+  //background: #3AB54A url(riku_me.jpg) no-repeat fixed center top
+  //background= "#3AB54A" image_url("digu.jpg") "no-repeat fixed center top"
+  #tweet
+    +container
+    +iluo-block-margin
+    //+iluo-opacity(0.8)
+    #content
+      +iluo-bp-columnly(716px)
+      +iluo-round(5px)
+      :margin-right 26px
+    #side_base
+      +column(4, true)
+      +iluo-round(5px)
+      
+@import twitter.sass
+@import twitter_signup.sass

@@ -1,0 +1,22 @@
+<div class="wm_rate_intro">
+  <ol class="system_message">
+    <li>谢谢您对<b>{{passport.get_scrname}}</b>服务的评价！</li>
+    <li>在评价后，您可以看到别人对<b>{{passport.get_scrname}}</b>的评价</li>
+  </ol>
+</div>
+
+<form id="wm_vote_form" method="post" action="/voting/user/">
+  <div id="wm_votes">
+    评分：
+    <input name="vote" type="radio" class="vote" title="恶劣" value="1" />
+    <input name="vote" type="radio" class="vote" title="较差" value="2" />
+    <input name="vote" type="radio" class="vote" title="一般" value="3" />
+    <input name="vote" type="radio" class="vote" title="优秀" value="4" />
+    <input name="vote" type="radio" class="vote" title="专业" value="5" />
+  </div>
+
+  评论 (如果您还有什么想告诉我们的，请写在下面)
+  <textarea name="comment" id="fm_wm_vote_comment" rows="4"></textarea>
+  <input type="submit" id="fm_wm_vote_submit" value="确定"/>
+  <input type="hidden" id="fm_wm_vote_uid" name="uid" value="{{passport.id}}" />
+</form>

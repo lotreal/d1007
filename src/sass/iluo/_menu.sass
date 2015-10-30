@@ -1,0 +1,51 @@
+=iluo-menu-apple(!button_num, !button_width, !button_height, !offset_y = -1024px)
+  width = !button_width * !button_num
+  height = !button_height
+  ul.ms-btns
+    width = !button_width * !button_num
+    height = !button_height
+    padding: 0
+    margin: 0
+    li
+      +float-left
+      width = !button_width
+      height = !button_height
+      a
+        background-image = !main_sprite_image
+        background-repeat: no-repeat
+        display: block
+        width = !button_width
+        padding-top = !button_height
+        height: 0
+        overflow: hidden
+    @for !n from 1 through !button_num
+      li.btn-#{!n} a
+        background-position   = - !button_width * (!n - 1) !offset_y - 0
+        &:hover
+          background-position = - !button_width * (!n - 1) !offset_y - 38
+        &:active
+          background-position = - !button_width * (!n - 1) !offset_y - 76
+  @for !n from 1 through !button_num
+    &.act-#{!n} ul.ms-btns li.btn-#{!n} a
+      background-position = - !button_width * (!n - 1) !offset_y - 114
+
+=iluo-menu-pro()
+  +inline-list
+  a, .selflink
+    +float-left
+    :background #C8C9CA none repeat scroll 0 0
+    :border-left 1px solid #FFFFFF
+    :color #FFFFFF
+    :height 16px
+    :padding 6px 10px 4px
+    :text-align center
+    :text-decoration none
+    :white-space nowrap
+    :line-height 14px
+    //:width 73px
+  li.active a, a:hover, .selflink
+    :background #A6A9AB none repeat scroll 0 0
+  a.first
+    +iluo-round-left(12px)
+  a.last
+    +iluo-round-right(12px)

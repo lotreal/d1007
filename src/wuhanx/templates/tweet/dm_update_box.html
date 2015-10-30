@@ -1,0 +1,24 @@
+<div id="dm_update_box"><form action="/direct_messages" class="status-update-form" id="direct_message_form" method="post"><div style="margin:0;padding:0"><input name="authenticity_token" type="hidden" value="549e6be9952ad37b558ab5986e80964702d9c772" /></div>  <fieldset class="common-form standard-form">
+      <div class="bar">
+	<h3>
+	  <label for="doing">
+	    Send <select name="user[id]" id="direct_message_user_id" accesskey=">" tabindex="3"></select> a direct message.
+	  </label>
+
+	</h3>
+	<span id="chars_left_notice" class="numeric">
+	  <strong id="status-field-char-counter" class="char-counter"></strong>
+	</span>
+      </div>
+      <div class="info">
+	<textarea accesskey="u" autocomplete="off" cols="15" id="text" name="text" rows="3" tabindex="4"></textarea>
+      </div>
+
+      <div class="status-btn">
+	<input type="submit" name="update" value="send" id="dm-submit" class="round-btn dm-btn" tabindex="4" />
+	<input id="direct_message_screen_name" name="screen_name" type="hidden" value="" />
+	<input id="tab_action" name="tab" type="hidden" value="index" />
+      </div>
+    </fieldset>
+  </form>
+</div>

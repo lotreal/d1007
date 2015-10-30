@@ -1,0 +1,43 @@
+{% load tweet_tags %}
+<li id="status_{{ status.id }}" class="hentry u-{{ status.author.screen_name }} status{% if forloop.first %} latest-status{% endif %}">
+  <div class="listable">
+    <span class="thumb vcard author">
+      <a class="url" href="{% url tweet_profile status.author.screen_name %}">
+	<img width="48" height="48" src="{{ status.author.profile_image_url }}" class="photo fn" alt="{{ status.author.name }}"/>
+      </a>
+    </span>
+  </div>
+  <span class="status-body">
+    <strong><a title="{{ status.author.name }}" class="screen-name" href="{% url tweet_profile status.author.screen_name %}">{{ status.author.screen_name }}</a></strong>
+    <span class="entry-content">
+      {{ status.text }}
+    </span>
+
+    <span class="meta entry-meta">
+      <a rel="bookmark" class="entry-date" href="{% url tweet_profile status.author.screen_name %}">
+
+	<span class="published">{{ status.created_at }}</span></a> 
+      <span>from <a rel="nofollow" href="{{ status.source_url }}">{{ status.source }}</a></span> 
+
+    </span>
+  </span>
+  {% if is_active_user %}
+  <span class="actions">
+    <div>
+      {% if status.favorited %}
+      <a title="un-favorite this tweet" id="status_star_{{ status.id }}" class="fav-action fav" href="{% url destroy_favorite status.id %}">  </a>
+      {% else %}
+      <a title="favorite this tweet" id="status_star_{{ status.id }}" class="fav-action non-fav" href="{% url create_favorite status.id %}">  </a>
+      {% endif %}
+      {% ifequal status.author.screen_name request.user.username %}
+      <a title="delete this direct message" class="del" href="{% url destroy_status status.id %}">  </a>
+      {% else %}
+      <a title="reply to {{ status.author.screen_name }}" href="{% url tweet_home %}?status=@{{ status.author.screen_name }}%20&amp;in_reply_to_status_id={{ status.id }}&amp;in_reply_to={{ status.author.screen_name }}" class="reply">  </a>
+      <a title="retweet" href="{% url tweet_home %}?status=RT%20@{{ status.author.screen_name }}%20{{ status.text }}" class="rt">  </a>
+
+      {% endifequal %}
+      <!-- for dm <a title="reply to ruanji" href="#" class="reply">  </a> -->
+    </div>
+  </span>
+  {% endif %}
+</li>

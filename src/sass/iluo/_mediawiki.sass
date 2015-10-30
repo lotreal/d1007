@@ -1,0 +1,67 @@
+=iluo-mediawiki-typography
+  :color #313131
+  #siteSub, #jump-to-nav, .printfooter, .editsection
+    display: none
+  .toctoggle, .toctoggle a, .editsection, .editsection a
+    font-weight: normal
+    color: SaddleBrown
+    text-decoration: none
+    font-size: 12px
+  #catlinks
+    +column(10)
+  h1
+    +column(7)
+  #wiki-snav
+    +column(9, true)
+    +iluo-block-margin(6px)
+    :padding-top 12px
+    ol, ul
+      +iluo-menu-pro
+      +float-right
+  h2
+    :font-family "黑体"
+  #wpTextbox1
+    width: 100%
+  hr
+    +colruler
+  p
+    //:font-size 14px
+    :text-indent 2em
+    :width 600px
+  p.no-indent, p.no-indent p
+    :text-indent 0
+  div.rb
+    +border(#CCCCCC)
+    :border-style dashed
+  div.sidebox, table#toc
+    +column(5)
+    +float-right
+  div.sidebox, table#toc td
+    :padding 0
+  div.sidebox
+    :clear right
+    .title
+      :font-family "黑体"
+      color: black
+      font-size: 2em
+      font-weight: normal
+      margin-bottom: 0.75em
+  table#toc
+    a
+      :text-decoration none
+    a:hover
+      :text-decoration underline
+
+  div.product-card
+    h3
+      :font-family "黑体"
+      :margin-bottom 3px
+    div
+      :padding-right 10px
+    i
+      color: #888888
+      font-style: normal
+    p
+      :width 222px
+      :text-indent 0
+      :margin 0 0 0.8em

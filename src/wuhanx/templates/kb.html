@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load iluo_tags %}
+
+
+{% block contextmenu %}
+{% if perms.account.can_edit_wiki %}
+&raquo;
+<li><a href="{{ WIKI }}/知识库" target="_blank">知识库</a></li>
+{% endif %}
+{% endblock %}	
+
+
+{% block content %}
+<div id="page">
+{% fetch "wiki://知识库" %}
+</div>
+{% endblock %}
+
+
+{% block javascript %}
+{% endblock %}

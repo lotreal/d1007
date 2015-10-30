@@ -1,0 +1,4 @@
+#!/bin/bash
+cd "$HOME/workspace/d1007com/src/wuhanx"
+
+python manage.py runserver_plus 192.168.0.22:8000 --settings debug_settings

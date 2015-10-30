@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="wuhanx" basedir="." default="sandbox">
+  <property file="build.properties" />
+
+  <patternset id="python.lib.min.filter">
+    <include name="iluo/**/*"/>
+    <include name="tweepy/**/*"/>
+    <include name="userprofile/**/*"/>
+  </patternset>
+
+  <patternset id="python.lib.general.filter">
+    <exclude name="django/**"/>
+  </patternset>
+
+  <patternset id="python.lib.full.filter">
+  </patternset>
+
+  <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+
+
+  <target name="start">
+    <shellscript shell="python" dir="${public.html.build.dir}" outputproperty="local.python.version">
+import sys
+print sys.version.replace('\n', ' ')
+    </shellscript>
+
+    <echo>==================================================================
+
+  ## var list ##
+  * ${src.dir}
+  * local.python.version  : ${local.python.version}
+  * remote.python.version : ${remote.python.version}
+
+  ## ALERT ##
+  1. overwrite this dir will LOST DATA!
+     : wiki/images
+  2. londit server set the HOST/javascript dir REDIRECT.
+  3. set static/avatars WRITEABLE!
+
+  ## About build mode ##
+  1. min(*)  : compile most frequently modified source ONLY. (default)
+  2. general : not compile mininum frequently modified source.
+  3. full    : compile all.
+
+==================================================================</echo>
+    
+    <input
+       addproperty="input.build.mode"
+       message="  Select build mode(0 to quit)"
+       validargs="0,1,2,3"
+       defaultvalue="1"
+       />
+
+    <switch value="${input.build.mode}">
+      <case value="1">
+	<property name="build.mode" value="min" />
+      </case>
+      <case value="2">
+	<property name="build.mode" value="general" />
+      </case>
+      <case value="3">
+	<property name="build.mode" value="full" />
+      </case>
+      <default>
+        <fail message="quit by user" />
+      </default>
+    </switch>
+    <echo>compile dir "${basedir}" with build mode "${build.mode}"</echo>
+  </target>
+
+  <target name="get.build.mode" depends="start">
+  </target>
+
+  <target name="build" depends="get.build.mode">
+    <delete dir="${public.html.build.dir}" />
+    <mkdir dir="${public.html.build.dir}" />
+
+    <copy todir="${public.html.build.dir}">
+      <fileset dir="${public.html.src.dir}">
+	<exclude name="**/*.pyc"/>
+	<exclude name="wiki/**"/>
+	<exclude name="t/**"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${public.html.build.dir}" overwrite="true">
+      <fileset dir="${londit.patch.src.dir}" />
+    </copy>
+
+    <exec executable="${python.compile.bin}">
+      <arg line='"${public.html.build.dir}"' />
+    </exec>
+
+    <if>
+      <equals arg1="${build.mode}" arg2="full" />
+      <then>
+	<copy todir="${public.html.build.dir}/wiki">
+	  <fileset dir="${public.html.src.dir}/wiki" />
+	</copy>
+
+	<copy todir="${public.html.build.dir}/t">
+	  <fileset dir="${public.html.src.dir}/t" />
+	</copy>
+
+      </then>
+      <else>
+	<copy todir="${public.html.build.dir}/wiki">
+	  <fileset dir="${src.dir}/patch.mediawiki" />
+	</copy>
+
+	<copy todir="${public.html.build.dir}/t">
+	  <fileset dir="${src.dir}/patch.laconica" />
+	</copy>
+
+      </else>
+    </if>
+
+    <antcall target="build.js.use.yui" />
+    <antcall target="build.css.use.yui" />
+
+    <shellscript shell="bash" dir="${public.html.build.dir}">
+      ${after.build}
+    </shellscript>
+
+    <!-- <build-python-lib /> -->
+    <delete dir="${python.lib.build.dir}" />
+    <mkdir dir="${python.lib.build.dir}" />
+
+    <copy todir="${python.lib.build.dir}">
+      <fileset dir="${python.lib.src.dir}">
+	<exclude name="**/*.pyc"/>
+	<patternset refid="python.lib.${build.mode}.filter"/>
+      </fileset>
+    </copy>
+
+    <exec executable="${python.compile.bin}">
+      <arg line='"${python.lib.build.dir}"' />
+    </exec>
+
+    <shellscript shell="bash" dir="${python.lib.build.dir}">
+      du -h --max-depth=1
+    </shellscript>
+  </target>
+
+  <target name="build.js.use.yui" description="compress javascript">
+    <var name="compress-cmd" 
+	 value="--type=js --charset=utf-8 --line-break=0 ${javascript.src.dir}/heeei.js -o ${javascript.build.dir}/heeei.js" />
+    <echo message="${compress-cmd}" />
+
+    <java jar="${basedir}/lib/yuicompressor-2.4.2.jar" fork="true">
+      <arg line="${compress-cmd}" />
+    </java>
+  </target>
+
+  <target name="build.css.use.yui" description="compress css">
+    <var name="compress-cmd" 
+	 value="--type=css --charset=utf-8 --line-break=0 ${css.src.dir}/main.css -o ${css.build.dir}/main.css" />
+    <echo message="${compress-cmd}" />
+
+    <java jar="${basedir}/lib/yuicompressor-2.4.2.jar" fork="true">
+      <arg line="${compress-cmd}" />
+    </java>
+  </target>
+
+  <target name="dist" depends="build">
+    <delete dir="${public.html.dist.dir}" />
+    <mkdir dir="${public.html.dist.dir}" />
+
+    <echo message="copy ${public.html.build.dir} to ${public.html.dist.dir}" />
+    <copy todir="${public.html.dist.dir}">
+      <fileset dir="${public.html.build.dir}">
+	<exclude name="**/*.py"/>
+      </fileset>
+    </copy>
+
+    <!-- <macrodef name="dist-python-lib"> -->
+    <delete dir="${python.lib.dist.dir}" />
+    <mkdir dir="${python.lib.dist.dir}" />
+
+    <copy todir="${python.lib.dist.dir}">
+      <fileset dir="${python.lib.build.dir}">
+      	<exclude name="**/*.py"/>
+      </fileset>
+      <fileset dir="${python.lib.build.dir}">
+	<include name="djangologging/**/*.py"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="ftp" depends="get.ftp.property, dist">
+    <antcall target="ftp.mt.notice" />
+
+    <echo message="ftp..." />
+    <ftp action="send" server="${ftp.server}" userid="${ftp.username}" password="${ftp.password}" remotedir="${ftp.remotedir}"
+         verbose="yes" depends="no">
+      <fileset dir="${dist.dir}">
+        <exclude name="d1007.com/public_html/.htaccess"/>
+        <exclude name="d1007.com/public_html/*.fcgi"/>
+        <exclude name="d1007.com/public_html/*.wsgi"/>
+      </fileset>
+    </ftp>
+
+    <antcall target="ftp.mt.finish" />
+  </target>
+
+  <!-- FTP -->
+  <target name="get.ftp.property">
+    <property name="ftp.server" value="dit928.londit.cn" />
+    <property name="ftp.remotedir" value="" />
+    <property name="ftp.username" value="ld1007co" />
+    <property name="ftp.password" value="B3auty" />
+
+    <input message="Please enter londit ftp server password:" addproperty="ftp.password">
+      <handler classname="org.apache.tools.ant.input.SecureInputHandler" />
+    </input>
+  </target>
+
+  <target name="ftp.mt.notice" depends="get.ftp.property">
+    <echo message="send mt notice" />
+    <ftp action="send" server="${ftp.server}" userid="${ftp.username}" password="${ftp.password}" remotedir="${ftp.remotedir}/d1007.com/public_html"
+         verbose="yes" depends="no">
+      <fileset dir="${public.html.dist.dir}/mt">
+        <include name=".htaccess"/>
+      </fileset>
+    </ftp>
+  </target>
+
+  <target name="ftp.mt.finish" depends="get.ftp.property">
+    <echo message="send mt finish notice" />
+    <ftp action="send" server="${ftp.server}" userid="${ftp.username}" password="${ftp.password}" remotedir="${ftp.remotedir}/d1007.com/public_html"
+         verbose="yes" depends="no">
+      <fileset dir="${public.html.dist.dir}">
+        <!-- <include name="*.fcgi" /> -->
+        <!-- <include name="*.wsgi" /> -->
+        <include name="*.wsgi" />
+        <include name=".htaccess" />
+      </fileset>
+    </ftp>
+  </target>
+
+  <target name="sandbox">
+    <stopwatch name="timer1"/>
+    <antcall target="start" />
+    <stopwatch name="timer1" action="elapsed"/> <!-- print the elapsed time -->
+
+    <shellscript shell="bash" dir="${public.html.build.dir}">
+      ls -al
+    </shellscript>
+
+<!--     <shellscript shell="python2.5" dir="${public.html.build.dir}"> -->
+<!-- import sys -->
+<!-- print sys.version -->
+<!--     </shellscript> -->
+
+
+    <stopwatch name="timer1" action="total"/> <!-- print out the total time -->
+    <antcall target="doSomethingElse">
+      <param name="param1" value="value"/>
+    </antcall>
+
+  </target>
+
+
+  <property name="param1" value="B" />
+  <target name="doSomethingElse">
+    <echo message="param1=${param1}"/>
+  </target>
+
+</project>
+<!-- <input message="Press Return key to continue..." /> -->

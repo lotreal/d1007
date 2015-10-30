@@ -1,0 +1,19 @@
+{% if not is_active_user %}
+<div id="profilebox_outer">
+  <!-- <div id="profilebird"><img width="48" height="48" src="http://a0.twimg.com/a/1250203207/images/profile_bird.png" id="profilebirdimg" alt="Profile_bird"/></div> -->
+  <div class="clearfix" id="profilebox">
+    <div id="profiletext">
+      <h1>Hey! {% if twitter.name %}<strong>{{ twitter.name }}</strong> 是我们的俱乐部成员。{% else %}欢迎光临我们的俱乐部。{% endif %}</h1>
+      <h2>您也加入我们的俱乐部吧，这里可以和朋友们畅所欲言。 <strong>马上加入</strong> 可以随时关注 {% if twitter.name %}<strong>{{ twitter.name }}</strong>{% else %}朋友们{% endif %}<strong>{{ twitter.name }}</strong> 的最新动向。</h2>
+    </div>
+    <div id="profilebutton">
+      <form action="{% url signup %}" id="account_signup_form" name="account_signup_form">
+        <!-- <input type="hidden" value="lotreal" name="follow" id="follow"/> -->
+        <input type="submit" value="加入俱乐部!" name="commit" id="join" class="profilesubmit"/>
+      </form>
+      <p>已经加入？使用您在本站或 <br />
+	<span title="目前支持google,msn,yahoo,flickr,aol,豆瓣等，将来会支持更多第三方网站，不用再繁琐的注册了!">google, msn, yahoo...的账户 <a href="{% url login %}">登录</a></p>
+    </div>
+  </div>
+</div>
+{% endif %}

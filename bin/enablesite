@@ -1,0 +1,13 @@
+#!/bin/bash
+
+sudo a2dissite local.d1007.com
+sudo rm /etc/apache2/sites-available/local.d1007.com
+
+sudo ln -s `pwd`/local.d1007.com /etc/apache2/sites-available/
+sudo a2ensite local.d1007.com
+
+sudo /etc/init.d/apache2 reload
+
+# add to /etc/hosts
+# 127.0.1.1	local.d1007.com
+# 192.168.0.22	debug.d1007.com

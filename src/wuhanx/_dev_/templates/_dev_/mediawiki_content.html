@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+
+{% block title %}<?php $this->text('pagetitle') ?>{% endblock %}
+
+
+{% block meta %}<?php $this->html('headlinks') ?>{% endblock %}
+
+
+{% block style %}
+<!--[if lt IE 7]><meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+<?php print Skin::makeGlobalVariablesScript( $this->data ); ?>
+<script type="<?php $this->text('jsmimetype') ?>" src="<?php $this->text('stylepath' ) ?>/common/wikibits.js?<?php echo $GLOBALS['wgStyleVersion'] ?>"><!-- wikibits js --></script>
+<!-- Head Scripts -->
+<?php $this->html('headscripts') ?>
+<?php if($this->data['jsvarurl'  ]) { ?>
+<script type="<?php $this->text('jsmimetype') ?>" src="<?php $this->text('jsvarurl'  ) ?>"><!-- site js --></script>
+<?php } ?>
+<?php if($this->data['pagecss'   ]) { ?>
+<style type="text/css"><?php $this->html('pagecss'   ) ?></style>
+<?php }
+   if($this->data['usercss'   ]) { ?>
+<style type="text/css"><?php $this->html('usercss'   ) ?></style>
+<?php }
+   if($this->data['userjs'    ]) { ?>
+<script type="<?php $this->text('jsmimetype') ?>" src="<?php $this->text('userjs' ) ?>"></script>
+<?php }
+   if($this->data['userjsprev']) { ?>
+<script type="<?php $this->text('jsmimetype') ?>"><?php $this->html('userjsprev') ?></script>
+<?php }
+   if($this->data['trackbackhtml']) print $this->data['trackbackhtml']; ?>
+
+<!-- Wiki Viewer Style -->
+<?php if (!iluo_wguser_in_sysop()) { ?>
+<style type="text/css">/*<![CDATA[*/
+      .editsection {display:none;}
+      /*]]>*/</style>
+<?php } ?>
+{% endblock %}
+
+
+
+{% block content %}
+<div id="wiki">
+  <a name="top" id="top"></a>
+  <?php if($this->data['sitenotice']) { ?><div id="siteNotice"><?php $this->html('sitenotice') ?></div><?php } ?>
+  <h1 id="firstHeading" class="firstHeading"><?php $this->data['displaytitle']!=""?$this->html('title'):$this->text('title') ?></h1>
+  <div id="bodyContent">
+    <h3 id="siteSub"><?php $this->msg('tagline') ?></h3>
+    <div id="contentSub"><?php $this->html('subtitle') ?></div>
+    <?php if($this->data['undelete']) { ?><div id="contentSub2"><?php     $this->html('undelete') ?></div><?php } ?>
+    <?php if($this->data['newtalk'] ) { ?><div class="usermessage"><?php $this->html('newtalk')  ?></div><?php } ?>
+    <?php if($this->data['showjumplinks']) { ?><div id="jump-to-nav"><?php $this->msg('jumpto') ?> <a href="#column-one"><?php $this->msg('jumptonavigation') ?></a>, <a href="#searchInput"><?php $this->msg('jumptosearch') ?></a></div><?php } ?>
+    <!-- start content -->
+    <?php $this->html('bodytext') ?>
+    <?php if($this->data['catlinks']) { $this->html('catlinks'); } ?>
+    <!-- end content -->
+    <?php if($this->data['dataAfterContent']) { $this->html ('dataAfterContent'); } ?>
+    <div class="visualClear"></div>
+  </div>
+</div>
+{% endblock %}
+
+
+
+{% block sidebar %}
+<?php if($iluo_wcdigger->haveToc()) { ?>
+{{ panel_prefix|safe }}
+<h2>目录</h2>
+<?php echo $iluo_wcdigger->getToc(); ?>
+{{ panel_suffix|safe }}
+<?php } ?>
+
+{{ panel_prefix|safe }}
+<h2>知识库检索</h2>
+<div id="searchBody" class="pBody">
+  <form action="<?php $this->text('searchaction') ?>" id="searchform"><div>
+      <input id="searchInput" name="search" type="text"<?php echo $this->skin->tooltipAndAccesskey('search');
+      if( isset( $this->data['search'] ) ) {
+      ?> value="<?php $this->text('search') ?>"<?php } ?> />
+      <input type='submit' name="go" class="searchButton" id="searchGoButton"value="<?php $this->msg('searcharticle') ?>"<?php echo $this->skin->tooltipAndAccesskey( 'search-go' ); ?> />&nbsp;
+      <input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="<?php $this->msg('searchbutton') ?>"<?php echo $this->skin->tooltipAndAccesskey( 'search-fulltext' ); ?> />
+  </div></form>
+</div>
+{{ panel_suffix|safe }}
+
+<?php if(iluo_wguser_in_sysop()) { ?>
+{{ panel_prefix|safe }}
+<h2><?php $this->msg('views') ?></h2>
+<ul>
+<?php foreach($this->data['content_actions'] as $key => $tab) {
+echo '<li id="' . Sanitizer::escapeId( "ca-$key" ) . '"';
+if( $tab['class'] ) {
+  echo ' class="'.htmlspecialchars($tab['class']).'"';
+}
+echo'><a href="'.htmlspecialchars($tab['href']).'"';
+if( in_array( $action, array( 'edit', 'submit' ) )
+    && in_array( $key, array( 'edit', 'watch', 'unwatch' ))) {
+  echo $skin->tooltip( "ca-$key" );
+} else {
+  echo $skin->tooltipAndAccesskey( "ca-$key" );
+}
+  echo '>'.htmlspecialchars($tab['text']).'</a></li>';
+} ?>
+</ul>
+
+{{ panel_suffix|safe }}
+<?php } ?>
+
+{% endblock %}

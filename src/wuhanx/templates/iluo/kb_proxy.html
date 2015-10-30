@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load iluo_tags %}
+{% load i18n %}
+
+{% block contextmenu %}
+{% if perms.account.can_edit_wiki %}
+&raquo;
+<li><a href="{{WIKI}}/{{wiki_title}}" target="_blank">{{wiki_title}}</a></li>
+{% endif %}
+{% endblock %}	
+
+{% block content %}
+<div id="wiki">
+  <h1>{{ wiki_title}}</h1>
+  {{ wiki_content|safe }}
+</div>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

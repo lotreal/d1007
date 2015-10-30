@@ -1,0 +1,13 @@
+#!/usr/bin/python2.6
+# -*- coding: utf-8 -*-
+
+import os,sys
+import compileall
+
+print "Compile script: %s " % sys.argv.pop(0)
+
+print "Compile dirs: %s " % sys.argv
+print "Python Version : %s " % sys.version
+
+for arg in sys.argv:
+    compileall.compile_dir(arg, force=True, quiet=True)

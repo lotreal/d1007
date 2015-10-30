@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load i18n %} 
+
+{% block content %}
+<div id="site-map">
+  {% if user.is_superuser %}
+  <h1>{% trans "Development" %}</h1>
+  <dl>
+    <dt>request path</dt>
+    <dd>{{ request.path }}</dd>
+
+    <dt>request referer</dt>
+    <dd>{{ request.META.HTTP_REFERER }}</dd>
+
+    <dt>project path</dt>
+    <dd>{{ project_path }}</dd>
+
+    <dt>check site context processors</dt>
+    <dd>{{ site_cp_ok }}</dd>
+
+    <dt>LANGUAGE_CODE</dt>
+    <dd>{{ LANGUAGE_CODE }}</dd>
+
+    <dt>django.core.context_processors.auth</dt>
+    <dd>{{ user.get_profile }}</dd>
+    <dd>{{ messages }}</dd>
+    <dd>{{ perms }}</dd>
+
+    <dt>request.session.items</dt>
+    <dd>{{ request.session.items }}</dd>
+  </dl>
+  <a href="/_dev_/test-sandbox">测试沙盒</a>
+  <h2>iluo</h2>
+  <ul>
+    <li><a href="/_dev_/test-raise-exception">iluo.http.raiseException</a></li>
+  </ul>
+
+  <h2>OAuth</h2>
+  <ul>
+    <li><a href="{% url douban-oauth %}">豆瓣 OAuth 测试</a></li>
+    <li><a href="{% url use-saved-access-token %}">使用存储的 access token 访问豆瓣</a></li>
+    <li><a href="{% url use-saved-access-token %}">使用存储的 access token 访问豆瓣</a></li>
+    <li><a href="{% url use-saved-access-token %}">使用存储的 access token 访问豆瓣</a></li>
+    <li><a href="{% url use-saved-access-token %}">使用存储的 access token 访问豆瓣</a></li>
+    <li><a href="{% url use-saved-access-token %}">使用存储的 access token 访问豆瓣</a></li>
+    <li><a href="{% url use-saved-access-token %}">使用存储的 access token 访问豆瓣</a></li>
+  </ul>
+
+  <h2>Source Fetch</h2>
+  <ul>
+    <li><a href="{% url dev-fetch-mediawiki %}">mediawiki fetch test</a></li>
+  </ul>
+
+  <h2>Css | 样式表测试</h2>
+  <ul>
+    <li><a href="{% url mediawiki-skin %}">生成Mediawiki Skin</a></li>
+    <li><a href="{% url mediawiki-skin-demo %}">Mediawiki Skin DEMO</a></li>
+
+    <li><a href="{% url css-sandbox %}">Css 沙盒</a></li>
+  </ul>
+  {% else %}
+  对不起，此页面已被删除！
+  {% endif %}
+</div>
+{% endblock %}

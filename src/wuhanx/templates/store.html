@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load iluo_tags %}
+
+{% block contextmenu %}
+{% if perms.account.can_edit_wiki %}
+&raquo;
+<li><a href="{{ WIKI }}/商城" target="_blank">商城</a></li>
+{% endif %}
+{% endblock %}	
+
+{% block content %}
+<div id="page">
+{% fetch "wiki://商城" %}
+</div>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

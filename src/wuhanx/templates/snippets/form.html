@@ -1,0 +1,13 @@
+<table class="form-table">
+  {% for field in form %}
+  <tr valign="top">
+    <th scope="row"><label for="blogdescription">{{ field.label_tag }}</label></th>
+    <td>
+      {{ field }}
+      <br/>
+      {{ field.help_text|safe }}
+      {{ field.errors }}
+    </td>
+  </tr>
+  {% endfor %}
+</table>

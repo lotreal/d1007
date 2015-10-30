@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load iluo_tags %}
+
+
+{% block contextmenu %}
+{% if perms.account.can_edit_wiki %}
+&raquo;
+<li><a href="{{ WIKI }}/服务" target="_blank">服务</a></li>
+{% endif %}
+{% endblock %}	
+
+
+{% block content %}
+<div id="page">
+{% fetch "wiki://服务" %}
+</div>
+{% endblock %}
+
+
+{% block javascript %}
+{% endblock %}

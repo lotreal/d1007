@@ -1,0 +1,11 @@
+.gsc-control div.gsc-resultsRoot { position: absolute; top: 45px; right: -46px; background: white; border: 1px solid gray; padding: 9px; width: 375px; }
+
+.gsc-control div.gsc-tabsArea { position: absolute; right: -46px; background: white; border: 1px solid gray; padding: 9px; width: 375px; z-index: 199; top: 16px; }
+
+input.gsc-input { font-size: 11px; color: #7E7E7E; position: absolute; width: 153px; background: url(images/searchfield_repeat.png) center top repeat-x; border: 0px; margin: 0; padding: 3px 0 0 0; height: 16px; margin-left: 20px; top: 0px; left: 0px; }
+
+div.gsc-clear-button { position: absolute; z-index: 99; right: -1px; top: 1px; }
+
+#globalsearch label .prettyplaceholder { display: block; overflow: hidden; text-indent: -9999px; height: 0; width: 0; }
+
+td.gsc-search-button, table.gsc-branding { display: none; }

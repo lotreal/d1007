@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load iluo_tags %}
+{% load tweet_tags %}
+
+
+{% block style %}
+<style type="text/css">
+{% if twitter.profile_background_image_url %}
+body { background: #3AB54A url('{{ TWEET_URL }}/background/{{ twitter.profile_background_image_url }}') no-repeat fixed center top; }
+{% endif %}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div id="tweet">
+
+  <div class="content-bubble-arrow"></div>
+
+  <div id="content">
+    <div class="section">
+
+      {% include "tweet/status_update_box.html" %}
+
+      {% include "tweet/timeline_heading.html" %}
+     
+      <ol id="timeline" class="statuses">
+	{% for status in statuses %}
+	{% include "tweet/status.html" %}
+	{% endfor %}
+      </ol>
+
+    </div>
+  </div>
+  <div id="side_base">
+    <div id="side">
+      <div id="profile" class="section">
+	<div class="user_icon">
+	  <a href="{% url tweet_profile twitter.screen_name %}" class="url" rel="contact" title="{{ twitter.screen_name }}">
+	    <img alt="{{ twitter.screen_name }}" class="side_thumb photo fn" height="31" src="{{ twitter.profile_image_url|format_avatar:31 }}" width="31" />
+	    <span id="me_name">{{ twitter.name }}</span></a>
+	</div>
+
+	{% include "tweet/stat.html" %}
+      </div>
+
+      {% include "tweet/sidebar_menu.html" %}
+      {% include "tweet/actions.html" %}
+      {% include "tweet/following.html" %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% load i18n %}
+{% load tweet_tags %}
+<div id="following">
+  <h2 class="sidebar-title" id="fm_menu"><span>{% trans "Following" %}</span></h2>
+  
+  <div class="sidebar-menu">
+    <div id="following_list">
+
+      {% for user in friends|slice:":-1" %}
+      <span class="vcard">
+	<a href="{% url tweet_profile user.screen_name %}" class="url" hreflang="en" rel="contact" title="{{ user.name }}"><img alt="{{ user.name }}" class="photo fn" height="24" src="{{ user.profile_image_url|format_avatar:24 }}" width="24" /></a>  </span>
+      {% endfor %}
+
+    </div>
+
+    <!-- <div id="friends_view_all"> -->
+    <!--   <a href="/lotreal/following" rel="me">View All&hellip;{{ friends|length }}</a> -->
+    <!-- </div> -->
+    
+  </div>
+</div>

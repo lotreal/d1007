@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load iluo_tags %}
+
+{% block content %}
+<div id="tweet">
+  <div id="content">
+    <div class="section">
+
+      {% include "tweet/timeline_heading.html" %}
+
+      {% include "tweet/status_update_box.html" %}
+      
+      <ol id="timeline" class="statuses">
+	{% for status in statuses %}
+	{% include "tweet/status.html" %}
+	{% endfor %}
+      </ol>
+
+      {% if authenticated %}
+      <div id="pagination">
+	<div id="pagination"><a href="/home?max_id=3306699289&amp;page=2&amp;twttr=true" class="round more" id="more" rel="next">more</a></div>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+  <div id="side_base">
+    <div id="side">
+      <div id="profile" class="section">
+	<div class="user_icon">
+	  <a href="http://lotreal" class="url" rel="contact" title="{{ me.screen_name }}">
+	    <img alt="{{ me.screen_name }}" class="side_thumb photo fn" height="48" src="{{ me.profile_image_url }}" width="48" />
+	    <span id="me_name">{{ me.name }}</span></a>
+	</div>
+
+	TODO INCLUDE
+vcard
+stat
+      </div>
+
+      <!-- <p class="promotion round"> -->
+      <!-- </p> -->
+sidebar_menu
+
+      <div id="custom_search">
+	<form action="/timeline/search" class="search" id="sidebar_search" method="get"> 
+	  <input id="sidebar_search_q" type="text" name="q" accesskey="/" class="round-left" title="Search" value="" />
+	  <span id="sidebar_search_submit" class="submit round-right" title="Search">&nbsp;</span>
+	</form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

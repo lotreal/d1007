@@ -1,0 +1,53 @@
+<div id="wm_livehelp">
+  {{ panel_prefix|safe }}
+  <div class="title">
+    <span style="float:right">
+      <!-- <a href="#" class="ic-11-notxt ic-11-help">?</a> -->
+      <a id="btn_close_livehelp" href="#" class="ic-11-notxt ic-11-close">x</a>
+    </span>
+    系统正常，正在为您服务的是<span class="csr_name"></span>
+  </div>
+
+  <div id="wm_mainpanel" class="yui-gf">
+    <div id="wm_sidebar" class="yui-u first">
+      <div class="avatar_50">
+        <a href="/home/?uid=3965640" title="XXX"><img height="50" width="50" src="" class="csr_avatar" /></a>
+      </div>
+
+      <div class="user_intro">
+        <a href="/passport/profile/uid" class="csr_name"></a>
+        <p><span class="csr_position"></span> <span class="csr_sn"></span></p>
+
+        <div id="wm_rate">
+          服务评价<span id="stars-cap"></span>
+          <div id="wm_rate_star">
+          </div>
+        </div>
+
+      </div>
+
+    </div><!-- #wm_sidebar -->
+
+    <div class="yui-u">
+      <div id="wm_chatpanel">
+        <div id="wm_postspanel">
+          <div id="wm_posts"></div>
+        </div>
+
+        <form id="wm_chatroom_form" method="post" action="/livehelp/post/">
+          <textarea name="fm_wm_content" id="fm_wm_content" rows="4"></textarea>
+          <input type="submit" id="fm_wm_submit" value="发送"/>
+          <input type="hidden" id="wm_updated" name="wm_updated" />
+        </form>
+
+        <div id="wm_statepanel"><span class='spinner'>发送中，请稍候...</span></div>
+      </div> <!-- #wm_chatpanel -->
+      <div id="wm_ratepanel">
+        <a href="#" class="return">返回交谈页面</a>
+        <div id="wm_ratepanel_body">
+        </div>
+      </div> <!-- #wm_ratepanel -->
+    </div> <!-- .yui-u -->
+  </div> <!-- #wm_mainpanel -->
+  {{ panel_suffix|safe }}
+</div>

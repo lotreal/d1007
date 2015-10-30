@@ -1,0 +1,6 @@
+<ul class="about vcard entry-author">
+  <li><span class="label">名字</span> <span class="fn">{{ twitter.name }}</span></li>
+  {% if twitter.location %}<li><span class="label">住址</span> <span class="adr">{{ twitter.location }}</span></li>{% endif %}
+  {% if twitter.url %}<li><span class="label">网址</span> <a target="_blank" rel="me nofollow" class="url" href="{{ twitter.url }}">{{ twitter.url }}</a></li>{% endif %}
+  {% if twitter.description %}<li id="bio"><span class="label">自述</span> <span class="bio">{{ twitter.description }}</span></li>{% endif %}
+</ul>

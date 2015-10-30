@@ -1,0 +1,46 @@
+{% load i18n %}
+{% load tweet_tags %}
+{% if is_active_user %}
+<div id="status_update_box">
+  <form action="{% url create_status %}" class="status-update-form" id="status_update_form" method="post">
+    <div style="margin:0;padding:0"><input name="authenticity_token" type="hidden" value="549e6be9952ad37b558ab5986e80964702d9c772" /></div>
+    <input id="tab_action" name="tab" type="hidden" value="index" />
+    <input id="authenticity_token" name="authenticity_token" type="hidden" value="549e6be9952ad37b558ab5986e80964702d9c772" />
+    <input id="in_reply_to_status_id" name="in_reply_to_status_id" type="hidden" value="{{ form.in_reply_to_status_id.data|default:"" }}" />
+    <input id="in_reply_to" name="in_reply_to" type="hidden" value="{{ form.in_reply_to.data|default:"" }}" />
+    <input id="source" name="source" type="hidden" value="d1007" />
+    <input id="tab_action" name="tab" type="hidden" value="index" />
+
+    <fieldset class="common-form standard-form">
+      <div class="bar">
+	<h3><label for="status" class="doing">{% trans "What are you doing?" %}</label></h3>
+	<span id="chars_left_notice" class="numeric">
+	  <strong id="status-field-char-counter" class="char-counter">{{ form.status.data|default:""|tweet_count }}</strong>
+	</span>
+      </div>
+      <div class="info">
+
+	<textarea cols="40" rows="2" id="status" name="status" accesskey="u" autocomplete="off" tabindex="1">{{ form.status.data|default:"" }}</textarea>
+	<div class="status-btn">
+	  <input type="submit" name="update" value="{% trans 'update' %}" id="update-submit" class="status-btn round-btn" tabindex="2" />
+	</div>
+	<div id="currently">
+          <strong>Latest:</strong>
+          <span id="latest_status">
+	    <span id="latest_text" style="color: rgb(102, 102, 102);"><span class="status-text">{{ twitter.status.text|default:"" }}</span><span class="entry-meta" id="latest_meta">{{ twitter.status.created_at }}</span></span>
+	    <!-- <span id="latest_text_full"> -->
+	    <!--   <span class="status-text"></span> -->
+	    <!--   <span class="entry-meta"><a rel="bookmark" class="entry-date" href="http://320214978"><span title="2009-08-15T01:41:49+00:00" class="published">about 9 hours ago</span></a><span>from web</span></span> -->
+	    <!-- </span> -->
+	  </span>
+	</div>
+
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<div id="results_update" class="minor-notification" style="display: none;">
+  <span id="new_results_count">0</span> more result since you started searching. <a href="/search?q=" title="" id="search_refresh_link">Refresh</a> to see them.
+</div>
+{% endif %}

@@ -1,0 +1,52 @@
+@import blueprint.sass
+
+=iluo-css-rounded-panel(!radius=7px)
+  +iluo-round(!radius)
+  background: #FFFFFF none repeat scroll 0 0
+  border: none
+
+.panel
+  position: relative
+
+.panel .top,
+.panel .bottom
+  background-repeat: no-repeat
+  font-size: 0
+  display: block
+  margin: 0
+  padding: 0
+  border: 0
+  width: 100%
+
+.panel .body
+  position: relative
+  padding: 0 2px
+  /* padding: 25px 50px
+
+/* SELF-DEFINED: panel with full width */
+.panel
+  +column(16, true)
+
+.panel .body
+  background= image_url("pn-980-bg.gif")
+
+.panel .top
+  background= image_url("pn-980-top.png")
+  height: 7px
+
+.panel .bottom
+  background= image_url("pn-980-bottom.gif")
+  height: 8px
+
+
+// pattern
+.lightpanel .panel
+  .top
+    background-image= image_url("lightpanel_topcap.gif")
+    height: 5px
+  .body
+    background= image_url("lightpanel_bg.gif") 0 "bottom"
+    padding: 0 0 2px
+  .bottom
+    display: none
+

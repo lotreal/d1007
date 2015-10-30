@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load iluo_tags %}
+{% load tweet_tags %}
+
+{% block style %}
+<style type="text/css">
+{% if twitter.profile_background_image_url %}
+body { background: #3AB54A url('{{ TWEET_URL }}/background/{{ twitter.profile_background_image_url }}') no-repeat fixed center top; }
+{% endif %}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div id="tweet">
+  {% include "tweet/profilebox.html" %}
+
+  <div class="content-bubble-arrow"></div>
+
+  <div id="content">
+
+    <div class="profile-head">
+
+      <div class="listable">
+	<h2 class="thumb clearfix">
+          <a href="{% url tweet_profile twitter.screen_name %}"><img border="0" width="73" height="73" valign="middle" src="{{ twitter.profile_image_url|format_avatar:73 }}" id="profile-image" alt=""/></a>
+	  {{ twitter.screen_name }}
+	</h2>
+	
+      </div>
+
+      <div class="clear"></div>
+      {% if not is_me and is_active_user %}
+      <div class="follow-actions {{ twitter.screen_name }}" id="follow_actions_{{ twitter.id }}">
+	<div class="follow-control">
+	  {% if not is_following %}
+	  <div id="follow_control">
+	    <form action="{% url create_friendship twitter.id %}" method="post">
+              <input type="submit" id="follow_button" class="follow-button" value="关注"/>
+	    </form>
+	  </div>
+	  <div id="follow-details">
+	    <p id="following">
+	    </p>
+	    <div id="follow_notifications">
+	    </div>
+	  </div>
+	  {% else %}
+	  <!-- <div class="med-btn opened" id="follow-toggle"> -->
+	  <div>
+	    <form action="{% url destroy_friendship twitter.id %}" method="post">
+              <input type="submit" id="remove_button" class="remove-button" value="取消关注"/>
+	    </form>
+	    <!-- <img class="ticon" alt="following" src="http://a2.twimg.com/a/1250203207/images/tiny_check.gif"/><strong>取消关注</strong>  -->
+	  </div>
+	  
+	  <div id="follow-details" style="">
+	    <p id="following">
+	      <strong>You follow iluo</strong>
+	      <input type="button" value="Remove" class="remove-button" id="remove_button"/>
+	      <br/>
+	      <span class="desc">iluo's tweets appear in your <a href="#">timeline</a>.</span>
+	    </p>
+	    <div id="follow_notifications">
+	    </div>
+	  </div>
+	  {% endif %}
+	</div>
+      </div>
+      {% endif %}
+
+      <div class="hentry">
+      </div>
+    </div>
+
+    <div class="section">
+
+      {% include "tweet/timeline_heading.html" %}
+
+      <ol id="timeline" class="statuses">
+	{% for status in statuses %}
+	{% include "tweet/profile_status.html" %}
+	{% endfor %}
+      </ol>
+
+    </div>
+  </div>
+  <div id="side_base">
+    <div id="side">
+      {% include "tweet/side_profile.html" %}
+      {% include "tweet/sidebar_menu.html" %}
+      {% include "tweet/actions.html" %}
+      {% include "tweet/following.html" %}
+
+      <div id="rssfeed">
+      	<hr/>
+      	<a href="{{ TWEET_URL }}/{{ twitter.screen_name }}/all/rss" class="xref rss profile-rss indented-link" rel="alternate" type="application/rss+xml">RSS feed</a>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load i18n %} 
+
+{% block content %}
+<div id="site-map">
+  <h1>{% trans "Site Map" %}</h1>
+
+  <h2>{% trans "Store" %}</h2>
+  <ul>
+    <li><a href="{% url kb '网店' %}">网店</a></li>
+    <li><a href="{% url kb '邮购' %}">邮购等其它购买方式</a></li>
+  </ul>
+
+  <h2>{% trans "Decency" %}</h2>
+  <ul>
+    <li><a href="{% url dev-home %}">产品介绍</a></li>
+  </ul>
+
+  <h2>{% trans "Club" %}</h2>
+  <ul>
+    <li><a href="{% url dev-home %}">积分查询</a></li>
+  </ul>
+
+  <h2>{% trans "Wiki" %}</h2>
+  <ul>
+    <li><a href="{% url dev-home %}">Lorem</a></li>
+  </ul>
+
+  <h2>{% trans "Support" %}</h2>
+  <ul>
+    <li><a href="{% url dev-home %}">常见问题</a></li>
+    <li><a href="{% url dev-home %}">联系方式</a></li>
+  </ul>
+
+  <h2>{% trans "Account" %}</h2>
+  <ul>
+    <li><a href="{% url profile_overview %}">{% trans "Overview" %}</a></li>
+    <li><a href="{% url profile_edit_personal %}">{% trans "Personal information" %}</a></li>
+    <li><a href="{% url profile_edit_avatar %}">{% trans "Avatar" %}</a></li>
+    <li><a href="{% url profile_edit_location %}">{% trans "Location" %}</a></li>
+    <li><a href="{% url profile_delete %}">{% trans "Remove profile" %}</a></li>
+  </ul>
+</div>
+{% endblock %}

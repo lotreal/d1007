@@ -1,0 +1,43 @@
+!iluo_block_margin_height     ||= 12px
+
+=iluo-opacity(!o)
+  filter= "alpha(opacity="!o * 100")"
+  -moz-opacity= !o
+  opacity= !o
+
+=iluo-minheight(!h)
+  min-height= !h
+  height= !h
+  div[class] &
+    height: auto
+
+=iluo-block-margin(!offset=0)
+  :margin-bottom = !iluo_block_margin_height + !offset
+
+.center
+  :text-align center
+
+.hide
+  :display none
+
+hr.space
+  :background transparent
+  :color transparent
+
+div.p
+  +iluo-block-margin
+
+.icon
+  :padding 0 0 2px 18px
+  :margin -2px 0
+  :background-image = !main_sprite_image
+  :background-repeat no-repeat
+  html.ie6 &
+    :background-image = !main_sprite_image_ie6
+
+div.block7
+  +column(6)
+  +colborder(#ccc)
+  :border-right 1px dashed #ccc
+
+//border-left: 1px dashed rgb(204, 204, 204); 

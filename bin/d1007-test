@@ -1,0 +1,4 @@
+#!/bin/bash
+cd $HOME/workspace/d1007com/src/wuhanx
+
+python manage.py test $1 --settings debug_settings

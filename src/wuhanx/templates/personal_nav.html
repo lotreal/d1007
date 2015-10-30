@@ -1,0 +1,9 @@
+{% if logined %}
+<li>您好，<a href="{{HOME}}/i/" title="我的资料">{{passport.get_scrname}}</a>&nbsp; [<a href="{{HOME}}/passport/logout/" title="退出登录">退出</a>]</li>
+{% if passport.is_superuser %}
+<li><a href="{{HOME}}/admin/">管理</a></li>
+{% endif %}
+<!-- <li><a href="javascript:;">站内信</a></li> -->
+{% else %}
+<li><a href="{{HOME}}/passport/">登录</a></li>
+{% endif %}

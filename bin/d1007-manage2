@@ -1,0 +1,6 @@
+#!/bin/bash
+cd $HOME/workspace/d1007com/src/wuhanx
+echo ""
+echo "python manage.py $@ --settings debug_settings --verbosity 2"
+echo ""
+python manage.py "$@" --settings debug_settings --verbosity 2

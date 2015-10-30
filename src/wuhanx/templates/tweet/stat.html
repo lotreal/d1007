@@ -1,0 +1,27 @@
+{% load i18n %}
+<div class="stats">
+  <table>
+    <tr>
+      <td>
+	<a href="#" id="following_count_link" class="link-following_page" rel="me" title="我关注的人 {{ twitter.friends_count }} 位">
+	  <span id="following_count" class="stats_count numeric">{{ twitter.friends_count }} </span>
+	  <span class="label">{% trans "Following" %}</span>
+	</a>
+      </td>
+      <td>
+	<a href="#" id="follower_count_link" class="link-followers_page" rel="me" title="有 {{ twitter.followers_count }} 位朋友在关注我">
+	  <span id="follower_count" class="stats_count numeric">{{ twitter.followers_count }} </span>
+	  <span class="label">{% trans "Followers" %}</span>
+	</a>
+      </td>
+      {% if is_active_user %}
+      <td>
+	<a href="{% url tweet_profile twitter.screen_name %}" class="link-updates" title="我发布了 {{ twitter.statuses_count }} 条讯息" rel="user">
+	  <span id="update_count" class="stats_count numeric">{{ twitter.statuses_count }}</span>
+	  <span class="label">{% trans "Tweets" %}</span>
+	</a>
+      </td>
+      {% endif %}
+    </tr>
+  </table>
+</div>

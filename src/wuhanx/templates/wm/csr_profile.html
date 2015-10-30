@@ -1,0 +1,20 @@
+{% extends "base_controlpanel.html" %}
+
+{% block body %}
+<div id="mainpanel">
+  {{ panel_prefix|safe }}
+  {% ifnotequal message None %}
+  <div class="system_message">{{message}}</div>
+  {% endifnotequal %}
+
+  <h1>客服代表：资料设置</h1>
+  <hr />
+  <form action="/wm/csr-profile/" method="POST">
+    {% include "snippets/form.html" %}
+    <p class="submit">
+      <input type="submit" value="保存设置" />
+    </p>
+  </form>
+  {{ panel_suffix|safe }}
+</div>
+{% endblock %}

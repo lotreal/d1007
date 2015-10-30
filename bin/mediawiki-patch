@@ -1,0 +1,9 @@
+#!/bin/bash
+ln /home/lot/workspace/d1007com/src/patch.mediawiki/LocalSettings.php /home/lot/workspace/d1007com/src/local/wiki/
+ln -s /home/lot/workspace/d1007com/src/patch.mediawiki/favicon.ico /home/lot/workspace/d1007com/src/local/wiki/favicon.ico
+
+ln -s /home/lot/workspace/d1007com/src/patch.mediawiki/extensions /home/lot/workspace/d1007com/src/local/wiki/
+ln -s /home/lot/workspace/d1007com/src/patch.mediawiki/images /home/lot/workspace/d1007com/src/local/wiki/
+
+ln /home/lot/workspace/d1007com/src/patch.mediawiki/skins/IluoEditor.php /home/lot/workspace/d1007com/src/local/wiki/skins/
+ln /home/lot/workspace/d1007com/src/patch.mediawiki/skins/IluoEditor.deps.php /home/lot/workspace/d1007com/src/local/wiki/skins/

@@ -1,0 +1,50 @@
+// blueprint grid setting
+!blueprint_grid_columns = 16
+!blueprint_grid_width   = 50px
+!blueprint_grid_margin  = 12px
+
+//!blueprint_font_family       = "Arial, Helvetica, sans-serif"
+!blueprint_font_family       = "verdana"
+//!blueprint_font_family       = "'Century Gothic',微软雅黑,Verdana,Georgia,Sans-Serif"
+//!blueprint_font_family       = "'微软雅黑', 'Segoe UI', Verdana, Arial"
+!blueprint_fixed_font_family = "'lucida console', monospace"
+!blueprint_font_size         = 12px
+
+!main_sprite_image      = image_url("d1007sp.png")
+!main_sprite_image_ie6  = image_url("d1007sp.gif")
+
+//!quiet_color            = #888
+!page_background_color  = #ebebeb
+!quiet_color            = #a1a0a0
+!header_color           = black
+
+!link_color             = #0088CC
+!link_hover_color       = #0088CC
+!link_focus_color       = !link_hover_color
+!link_active_color      = !link_color + #C00
+!link_visited_color     = !link_color - #333
+
+
+
+// global nav setting
+!globalnav_button_num       = 6
+!globalnav_button_width     = 117px
+!globalnav_button_height    = 38px
+!globalnav_sprinte_offset_y = -1024px
+
+!iluo_block_margin_height = 18px
+
+@import blueprint.sass
+@import blueprint/reset.sass
+@import blueprint/modules/scaffolding.sass
+
+@import compass.sass
+
+@import iluo/general.sass
+@import iluo/round.sass
+@import iluo/blueprint_extra.sass
+@import iluo/menu.sass
+@import iluo/mediawiki.sass
+@import iluo/panel.sass
+@import iluo/widget.sass
+@import iluo/google_ajax_search.sass

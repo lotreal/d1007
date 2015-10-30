@@ -1,0 +1,10 @@
+build/
+dist/
+lib/
+images/
+
+.svn/
+.sass-cache/
+
+*.pyc
+Thumbs.db

@@ -1,0 +1,22 @@
+<h3>您正在评价 乔凤珠 的服务</h3>
+说明：
+<ol class="wm_rate_intro">
+  <li>谢谢您的评价，这对我们改进服务极其重要；</li>
+  <li>您的评价将在点击下面的确定后生效；</li>
+  <li>对同一个人，每天只能评价一次；</li>
+  <li>评价后可以看到别人的评价。</li>
+</ol>
+<form id="wm_vote_form" method="post" action="/voting/user/">
+  <div id="wm_vote_radios">
+    打分
+    <input name="vote" type="radio" class="vote" title="恶劣" value="1" />
+    <input name="vote" type="radio" class="vote" title="较差" value="2" />
+    <input name="vote" type="radio" class="vote" title="一般" value="3" />
+    <input name="vote" type="radio" class="vote" title="优秀" value="4" />
+    <input name="vote" type="radio" class="vote" title="专业" value="5" />
+  </div>
+  评论 (如果您还有什么想告诉我们的，请写在下面)
+  <textarea name="comment" id="fm_wm_vote_comment" rows="4"></textarea>
+  <input type="submit" id="fm_wm_vote_submit" value="确定"/>
+  <input type="hidden" id="fm_wm_vote_uid" name="uid" />
+</form>

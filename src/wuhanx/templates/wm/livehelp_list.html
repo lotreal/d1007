@@ -1,0 +1,19 @@
+{% extends "base_controlpanel.html" %}
+
+{% block body %}
+<div id="mainpanel">
+{{ panel_prefix|safe }}
+<h1>客服管理：客服聊天室列表</h1>
+<hr />
+<ul class="blocks">
+  {% for chatroom in query_set %}
+  <li>
+    <a href="/wm/chatroom-{{ chatroom.id }}/" class="{% if chatroom.is_online %}online{% else %}offline{% endif %}">
+      {{chatroom.owner.get_scrname }} <strong>[{% if chatroom.is_online %}在线{% else %}离线{% endif %}]</strong>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{{ panel_suffix|safe }}
+</div>
+{% endblock %}

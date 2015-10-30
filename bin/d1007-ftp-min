@@ -1,0 +1,3 @@
+#!/bin/bash
+cd ~/workspace/d1007com/
+ant ftp -Dinput.build.type=0 $1 # -listener net.sf.antcontrib.perf.AntPerformanceListener

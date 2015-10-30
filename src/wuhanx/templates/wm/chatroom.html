@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div id="wm_chatroom">
+  {{ panel_prefix|safe }}
+  <div class="title">
+    <div class="windows-menu">
+      <span id="wm_message"><span></span></span>
+      <a id="btn_start_update" href="#">开始更新</a>
+      <a id="btn_stop_update" href="#">停止更新</a>
+      <a href="/wm/quit/1/">退出聊天室</a>
+      <a href="#">系统消息</a>
+      <image src="{{ MEDIA_URL }}images/spinner.gif" class="update_spinner" style="visibility:hidden;" />
+    </div>
+    <span id="wm_status">系统状态：<span></span></span>，
+    目前共 <span class="wm_chatroom_members_count">_</span> 人在线
+  </div>
+
+  <div class="yui-gf">
+    <div id="wm_userpanel" class="yui-u first">
+      <ul class="userlist">
+      </ul>
+    </div><!-- yui-u A -->
+
+    <div class="yui-u">
+      <div id="wm_mainpanel">
+        <div class="wm_msgpanel">
+          <span style="float:right">
+            <a href="#">关闭</a>
+          </span>
+          <div class="contents">
+            <a href='#'>【系统公告】Nine 已进入房间！</a>
+          </div>
+        </div>
+
+        <div class="postpanel">
+          <div class="posts" id="wm_posts">
+          </div><!-- #wm_posts -->
+        </div><!-- .postpanel -->
+
+        <div class="wm_helperpanel">
+          <span style="float:right">
+            <a class="close" href="#">关闭</a>
+          </span>
+          <div class="contents">
+            您正在回复 <a href='#'>lot : 你好，欢迎光临，有什么可以为您效劳你好，欢迎光临，有什么可以为您效劳你好，欢迎光临，有什么可以为您效劳你好，欢迎光临，有什么可以为您效劳你好，欢迎光临，有什么可以为您效劳你好，欢迎光临，有什么可以为您效劳?</a>
+          </div>
+        </div>
+      </div>
+      <form id="wm_chatroom_form" method="post" action="/999/">
+        <textarea name="fm_wm_content" id="fm_wm_content" rows="4"></textarea>
+        <input type="submit" id="fm_wm_submit" value="发送"/>
+        <input type="hidden" id="fm_wm_chatroom_id" name="fm_wm_chatroom_id" value="" />
+        <input type="hidden" id="wm_updated" name="wm_updated" value="" />
+        <input type="hidden" id="fm_wm_reply" name="fm_wm_reply" value="" />
+      </form>
+
+    </div><!-- yui-u B -->
+
+  </div><!-- yui-g -->
+  {{ panel_suffix|safe }}
+</div><!-- #wm-chatroom -->
+
+{% endblock %}
+
+
+
+{% block page_javascript %}
+  heeei.set('use_livehelp', true);
+  heeei.set('wm_ui', 0);
+  heeei.set('wm_auto_connect', true);
+  heeei.set('wm_join_url' ,'/wm/join-chatroom{% ifnotequal cid 'auto' %}-{{cid}}{% endifnotequal %}/');
+  heeei.set('wm_update_url' ,'/wm/update-chatroom-');
+  heeei.set('wm_post_url' ,'/wm/post-in-chatroom-');
+{% endblock %}

@@ -1,0 +1,19 @@
+{% load i18n %}
+<ul id="primary_nav" class="sidebar-menu">
+  {% if is_me %}
+  <li id="home_tab"><a href="{% url tweet_home %}" accesskey="h" class="in-page-link"><span>{% trans "Home" %}</span></a></li>
+  <li id="replies_tab"><a href="{% url tweet_replies %}" accesskey="m" class="in-page-link"><span>{% trans "Tweets mentioning" %}</span></a></li>
+  <!-- <li id="direct_messages_tab"> -->
+  <!--   <a href="#" accesskey="d" class="in-page-link"><span id="message_count" class="stat_count">*</span><span>私人讯息</span></a> -->
+  <!--   <a href="#" accesskey="i" class="in-page-link" style="display:none;"></a> -->
+  <!--   <a href="#" accesskey="o" class="in-page-link" style="display:none;"></a>  -->
+  <!-- </li> -->
+  {% else %}  
+  <li id="profile_tab" class="active"><a class="in-page-link" accesskey="u" href="{% url tweet_profile twitter.screen_name %}"><span class="stat_count" id="update_count">{{ twitter.statuses_count }}</span><span>{% trans "Tweets" %}</span></a></li>
+  {% endif %}
+  <li id="favorites_tab">
+    <a href="{% url tweet_favorites %}?user={{ twitter.screen_name }}" accesskey="f" class="in-page-link" id="favorites_link"><span id="message_count" class="stat_count">{{ twitter.favourites_count }}</span><span>{% trans "Favorites" %}</span></a>
+  </li>
+  <li id="public_tab"><a href="{% url public_timeline %}" accesskey="f" class="in-page-link"><span>{% trans "Public Timeline"%}</span></a></li>
+</ul>
+<hr />

@@ -1,0 +1,9 @@
+Options +FollowSymlinks
+
+RewriteEngine on
+
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule .* - [L]
+
+RewriteCond %{HTTP_HOST} www\.local-d1007\.com
+RewriteRule ^(.*)$ mt/index.html  [L]

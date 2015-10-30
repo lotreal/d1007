@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "User registration" %}{% endblock %}
+{% block robots %}noindex,nofollow{% endblock %}
+
+{% block at_body_tag %} id="new" class="account"{% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript">
+  $(function() {
+  $("input#id_username").focus();
+  $("input[type='text'], input[type='password']").addClass("text");
+  });
+</script>
+{% endblock %}
+
+
+{% block content %} 
+<div id="page">
+  <div class="content-bubble-arrow"></div>
+  
+  <table cellspacing="0" class="columns">
+    <tbody>
+      <tr>
+        <td id="content" class="round-left column wide">
+          <div class="wrapper">
+	    <div class="content-heading">
+	      <div class="heading">
+		<p class="sign-in">
+		  {% trans "Already registered?" %} <a href="{% url login %}">{% trans "Sign in" %}</a>
+		</p>
+		<h2>{% trans "Join us" %}</h2>
+		<p>
+		</p>
+	      </div>
+	    </div>
+	    <div id="signup-form" class="">
+	      <form action="{% url signup %}" method="post" accept-charset="utf-8"{% if form.errors %} class="valid-error"{% endif %}>
+		<div style="margin:0;padding:0"><input name="authenticity_token" type="hidden" value="c8fdef7121ff9e5ff4e546f769d929f4f57f1fc2" /></div>    
+		<input id="follow" name="follow" type="hidden" />
+		<fieldset>
+		  <table class="input-form">
+		    {% for field in form %}
+		    <tr>
+		      <th>
+			{{ field.label_tag }}
+		      </th>
+		      <td class="col-field">
+			{{ field }}
+			<!-- <input autocomplete="off" class="text_field" id="user_name" name="user[name]" size="30" tabindex="1" type="text" /> -->
+		      </td>
+		      <td class="col-help">
+			<div class="label-box info">{{ field.help_text}}</div>
+			<div class="label-box good{% if not field.errors %} show{% endif%}">Ok</div>
+			<div class="label-box error{% if field.errors %} show{% endif%}">{{ field.errors|join:"; " }}</div>
+		      </td>
+		    </tr>
+		    {% ifequal field.html_name "username" %}
+		    <tr>
+		      <th></th>
+		      <td colspan="2">
+			<span id="screen_name_url">
+			  Your URL: http://d1007.com/<strong id="signup_username_url">USERNAME</strong>
+			</span>
+		      </td>
+		    </tr>
+		    {% endifequal %}
+		    {% endfor %}
+		    
+		    <tr>
+		      <th></th>
+		      <td colspan="2"><input alt="{% trans "I accept. Create my account" %}" class="flow-button green-arrow" id="user_create_submit" name="commit" onclick="this.disabled=true,this.form.submit();" tabindex="7" type="submit" value="{% trans "Create my account" %}" /></td>
+		    </tr>
+		  </table>
+		</fieldset>
+	    </form></div>
+
+          </div>
+          
+	  <div id="content-footer">
+	    <div id="content-footer-content">
+	      <p>
+		{% trans "By clicking on 'Create my account' above, you confirm that you accept the <a href='/tos' target='_blank'>Terms of Service</a>." %}
+	      </p>
+	    </div>
+	  </div>
+        </td>
+        
+      </tr>
+    </tbody>
+  </table>
+  
+
+  
+
+
+  <hr />
+
+</div>
+{% endblock %}
+

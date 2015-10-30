@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><!--
+Content-type: Preventing XSRF in IE.
+
+-->
+  <head><meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>Css Sandbox {{entry}}</title>
+    <script type="text/javascript" charset="utf-8">
+      function css_browser_selector(u){var ua = u.toLowerCase(),is=function(t){return ua.indexOf(t)>-1;},g='gecko',w='webkit',s='safari',h=document.getElementsByTagName('html')[0],b=[(!(/opera|webtv/i.test(ua))&&/msie\s(\d)/.test(ua))?('ie ie'+RegExp.$1):is('firefox/2')?g+' ff2':is('firefox/3')?g+' ff3':is('gecko/')?g:/opera(\s|\/)(\d+)/.test(ua)?'opera opera'+RegExp.$2:is('konqueror')?'konqueror':is('chrome')?w+' chrome':is('applewebkit/')?w+' '+s+(/version\/(\d+)/.test(ua)?' '+s+RegExp.$1:''):is('mozilla/')?g:'',is('j2me')?'mobile':is('iphone')?'iphone':is('ipod')?'ipod':is('mac')?'mac':is('darwin')?'mac':is('webtv')?'webtv':is('win')?'win':is('freebsd')?'freebsd':(is('x11')||is('linux'))?'linux':'','js']; c = b.join(' '); h.className += ' '+c; return c;}; css_browser_selector(navigator.userAgent);
+    </script>
+    <link rel="stylesheet" href="{{HOME}}/static/css/sandbox.css" type="text/css" charset="utf-8">
+  </head>
+  <body>
+    <h1>Css Sandbox{{ request.META.PATH_INFO }} | {{ entry.getme.getname }}</h1>
+    <hr />
+    <div id="Attuc">
+      <h5 class="reflect_1">Css Sandbox | 样式沙盒测试</h5>
+      <hr class="hl" />
+
+      <hr />
+
+      <h5 class="elegant">The chapel De La Ross Johnson</h5>
+
+      <h5 class="handwriting">Don’t forget to turn off the lights when you leave!</h5>
+
+      <p class="letters">Potential use for magazine style typography<br/>Close line height and letter spacing, <br/> almost connected lines…</p>
+
+      <h5 class="el">SATURDAY MARCH 19TH 2046</h5>
+    </div>
+    <hr />
+  </body>
+</html>

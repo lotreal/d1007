@@ -1,0 +1,194 @@
+{% load i18n %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><!--
+Content-type: Preventing XSRF in IE.
+
+-->
+  <head><meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>{% block title %}{{site_name}} &raquo; {{page_name}}{% endblock %} </title>
+    {% block meta %}
+    <meta name="description" content="Get all your news and blogs in one place with Google Reader">
+    {% endblock %}
+    <script type="text/javascript" charset="utf-8">
+      function css_browser_selector(u){var ua = u.toLowerCase(),is=function(t){return ua.indexOf(t)>-1;},g='gecko',w='webkit',s='safari',h=document.getElementsByTagName('html')[0],b=[(!(/opera|webtv/i.test(ua))&&/msie\s(\d)/.test(ua))?('ie ie'+RegExp.$1):is('firefox/2')?g+' ff2':is('firefox/3')?g+' ff3':is('gecko/')?g:/opera(\s|\/)(\d+)/.test(ua)?'opera opera'+RegExp.$2:is('konqueror')?'konqueror':is('chrome')?w+' chrome':is('applewebkit/')?w+' '+s+(/version\/(\d+)/.test(ua)?' '+s+RegExp.$1:''):is('mozilla/')?g:'',is('j2me')?'mobile':is('iphone')?'iphone':is('ipod')?'ipod':is('mac')?'mac':is('darwin')?'mac':is('webtv')?'webtv':is('win')?'win':is('freebsd')?'freebsd':(is('x11')||is('linux'))?'linux':'','js']; c = b.join(' '); h.className += ' '+c; return c;}; css_browser_selector(navigator.userAgent);
+    </script>
+    <link rel="stylesheet" href="{{ MEDIA_URL }}css/main.css" type="text/css" charset="utf-8">
+    {% block style %}{% endblock %}
+  </head>
+  <body{{ body_attribute }}{% block at_body_tag %}{% endblock %}>
+    <div id="start">
+      <ul class="context-menu">
+	{% if perms.account.can_edit_wiki %}
+	<li><a href="{{ WIKI }}" target="_blank">{% trans "Wiki" %}</a></li>
+	{% endif %}
+
+	{% block contextmenu %}
+	{% endblock %}
+
+	{% if user.is_superuser %}
+	|
+	<li><a href="/admin">{% trans "Admin" %}</a></li>
+	<li><a href="{% url dev-home %}">{% trans "Test" %}</a></li>
+	{% endif %}
+
+      </ul>
+
+      <ul class="quickrun">
+	<li><a href="/">{% trans "Home" %}</a></li>
+	{% if is_active_user %}
+	<li><a href="{% url tweet_profile current_username %}">{% trans "Profile" %}</a></li>
+	<li><a href="{% url profile_overview %}">{% trans "Settings" %}</a></li>
+	<li><a href="{% url support-home %}">{% trans "Help" %}</a></li>
+   	<li><a href="{% url logout %}">{% trans "Sign out" %}</a></li>
+	{% else %} 
+	<li><a href="{% url profile_overview %}">{% trans "Sign in" %}</a></li>
+	<li><a href="{% url signup %}">{% trans "Register" %}</a></li>
+  	{% endif %}
+        <!-- <li><a class="icon" title="一站式客户服务中心" href="#">{% trans "OSC" %}</a></li> -->
+      </ul>
+    </div>
+
+    {% block header %}
+    {% comment %}{% include "wm/livehelp.html" %}{% endcomment %}
+    <div id="osc">
+      {{ panel_prefix|safe }}
+      <!--           <div class="loading card"></div> -->
+      {{ panel_suffix|safe }}
+    </div>
+    {% endblock %}
+    
+    <div id="header">
+      <div id="nav" class="act-1">
+        <ul class="ms-btns">
+          <li class="btn-1"><a href="{% url site-home %}">{% trans "Home" %}</a></li>
+          <li class="btn-2"><a href="{% url store-home %}">{% trans "Store" %}</a></li>
+          <li class="btn-3"><a href="{% url kb '端庄' %}">{% trans "Decency" %}</a></li>
+          <li class="btn-4"><a href="{% url tweet_home %}">{% trans "Club" %}</a></li>
+          <li class="btn-5"><a href="{% url kb-home %}">{% trans "Wiki" %}</a></li>
+          <li class="btn-6"><a href="{% url support-home %}">{% trans "Support" %}</a></li>
+        </ul>
+      </div>
+      <div id="search">
+        <div id="search-wrapper">
+          <div class="left"></div>
+          <div id="search-input">
+	    <form id="cse-search-box" action="http://www.google.com/cse">
+              <div>
+                <input type="hidden" value="016022322448111872611:tpssilsypio" name="cx" />
+                <input type="hidden" value="UTF-8" name="ie" />
+                <input type="text" name="q" class="search" accesskey="s" />
+              </div>
+	    </form>
+          </div>
+          <div class="right"></div>
+        </div>
+      </div>
+    </div>
+
+    {% block content %}
+    {{ panel_prefix|safe }}
+    主内容块
+    {{ panel_suffix|safe }}
+    {% endblock %}
+
+    <div id="footer">
+      <div class="tips">从<a href="{% url kb '购买' %}">这里</a>进入网上商城，或者在<a href="{% url kb '经销商目录' %}">这里</a>查找经销商目录。服务热线：(86)027-8739 9167</div>
+      <div class="shortcut">
+        <a href="{% url site-map %}">{% trans "Site Map"%}</a>
+        <!-- <a href="#">{% trans "Official Blog" %}</a> -->
+        <a class="last" href="{% url kb '联系我们' %}">{% trans "Contact Us"%}</a>
+      </div>
+
+      <hr />
+
+      <div class="copyright">
+        © 2009 湖北千之鹤黑木耳食品有限公司
+      </div>
+
+      <div class="i18n">
+	<form action="/i18n/setlang/" method="post">
+	  {% trans "Display language" %} :
+	  <select name="language" title="Choose your language">
+	    {% for lang in LANGUAGES %}
+	    {% ifequal lang.0 LANGUAGE_CODE %}
+	    <option selected="selected" value="{{ lang.0 }}">{{ lang.1 }}</option>
+	    {% else %}
+	    <option value="{{ lang.0 }}">{{ lang.1 }}</option>
+	    {% endifequal %}
+	    {% endfor %}
+	  </select>
+	  <input type="submit" value="Go" />
+	</form>
+      </div>
+
+    </div>
+
+
+    <div id="fx_heler_box"></div>
+
+    {% if debug %}
+    <h1>{% trans "Development" %}</h1>
+    <dl>
+      <dt>request path</dt>
+      <dd>{{ request.path }}</dd>
+
+      <dt>request referer</dt>
+      <dd>{{ request.META.HTTP_REFERER }}</dd>
+
+      <dt>project path</dt>
+      <dd>{{ project_path }}</dd>
+
+      <dt>check site context processors</dt>
+      <dd>{{ site_cp_ok }}</dd>
+
+      <dt>LANGUAGE_CODE</dt>
+      <dd>{{ LANGUAGE_CODE }}</dd>
+
+      <dt>django.core.context_processors.auth</dt>
+      <dd>{{ messages }}</dd>
+
+      <dt>request.session.items</dt>
+      <dd>{{ request.session.items }}</dd>
+    </dl>
+  {% endif %}
+
+  </body>
+  {% if debug %}
+  <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.3.2.js"></script>
+  {% else %}
+  <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.3.2.min.js"></script>
+  {% endif %}
+  <script type="text/javascript" src="{{ MEDIA_URL }}js/heeei.js" charset="utf-8"></script>
+  {% block extrajs %}{% endblock %}
+
+  {% if not USE_RUNSERVER %}
+  <script src="http://www.google.com/jsapi?key=ABQIAAAAF95lA65id7haywozxc4PfBQZ-AfskKAAG7PfVXIIXGdcNFbVnhR-BpbANQMw9nRmoIyZTZ8K3ZnYRA" type="text/javascript"></script>
+  <script language="Javascript" type="text/javascript">
+    //<![CDATA[
+    google.load("search", "1", {"language" : "zh-CN"});
+    //]]>
+  </script>
+
+  <script type="text/javascript">
+    // <![CDATA[
+  heeei.set('home', '{{ HOME }}');
+  {% if debug %}heeei.set('debug', true);{% endif %}{% if use_livehelp %}
+  heeei.set('use_livehelp', true);
+  heeei.set('wm_auto_connect', {{wm_auto_connect}});{% endif %}
+  heeei.set('use_google_ajax_search', true);
+
+{% block javascript %}{% endblock %}
+  // ]]>
+  </script>
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    if (typeof(_gat)=='object')
+    setTimeout(function(){
+    var pageTracker = _gat._getTracker("UA-10080342-2");
+    pageTracker._trackPageview();
+    }, 1500);
+  </script>
+  {% endif %}
+</html>

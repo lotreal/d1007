@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load iluo_tags %}
+{% load i18n %}
+
+{% block contextmenu %}
+{% if perms.account.can_edit_wiki %}
+&raquo;
+<li><a href="{{ WIKI }}/网站首页" target="_blank">网站首页</a></li>
++
+<li><a href="{{ WIKI }}/Category:新闻" target="_blank">新闻</a></li>
+{% endif %}
+{% endblock %}	
+
+{% block content %} <!-- BODY -->
+<div id="page">
+  {% fetch "wiki://网站首页" %}
+</div>
+
+<div id="news-minibar" class="lightpanel">
+  {{ panel_prefix|safe }}
+  <a class="minibar-title" href="#"> &raquo; 新闻热点</a>
+  {% fetch "wiki://listcm/Category:新闻/slide" %}
+  {{ panel_suffix|safe }}
+</div>
+{% endblock %}<!-- END OF BODY -->
+
+{% block javascript %}
+heeei.set('use_slide', true);
+{% endblock %}

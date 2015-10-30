@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block body %}
+{{ panel_prefix|safe }}
+{{ result }}
+
+<table>
+  <tr>
+    <td><b class="stars star1"><b></b></b></td>
+    <td>{{result.1}}</td>
+  </tr>
+  <tr>
+    <td><b class="stars star2"><b></b></b></td>
+    <td>{{result.2}}</td>
+  </tr>
+  <tr>
+    <td><b class="stars star3"><b></b></b></td>
+    <td>{{result.3}}</td>
+  </tr>
+  <tr>
+    <td><b class="stars star4"><b></b></b></td>
+    <td>{{result.4}}</td>
+  </tr>
+  <tr>
+    <td><b class="stars star5"><b></b></b></td>
+    <td>{{result.5}}</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td>评价</td>
+    <td>评价内容</td>
+    <td>评价人</td>
+    <td>评价日期</td>
+  </tr>
+  {% for vote in votes %}
+  <tr>
+    <td>{{vote.score}}</td>
+    <td>{{vote.comment}}</td>
+    <td>{{vote.passport.get_scrname}}</td>
+    <td>{{vote.created}}</td>
+  </tr>
+  {% endfor %}
+</table>
+{{ panel_suffix|safe }}
+{% endblock %}
+
+{% block page_javascript %}
+//heeei.set('use_slide', true);
+{% endblock %}

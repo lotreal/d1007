@@ -1,0 +1,33 @@
+Options +FollowSymlinks
+#AddHandler fastcgi-script .fcgi
+AddHandler wsgi-script .wsgi
+
+# PHP error handling for production servers
+php_flag display_errors on
+php_flag log_errors on
+php_value error_log php_errors.log
+
+RewriteEngine on
+#RewriteBase /
+
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule .* - [L]
+
+# RewriteRule ^static/.*$ -  [L]
+# RewriteRule ^wiki/.*$ -  [L]
+
+RewriteCond %{HTTP_HOST} ^www\.local-d1007\.com$
+#RewriteRule ^(.*)$ local.fcgi/$1 [QSA,L]
+RewriteRule ^(.*)$ local.wsgi/$1 [QSA,L]
+
+
+# RewriteCond %{HTTP_HOST} ^(.+)\.local-d1007\.com$
+# RewriteRule ^(.*)$ %{HTTP_HOST}$1 [C]
+
+RewriteCond %{HTTP_HOST} ^(.+)\.local-d1007\.com$
+RewriteRule ^(.*)$ %1/$1 [QSA,L,NS]
+# RewriteRule ^(.*)$ %{HTTP_HOST}$1 [C]
+# RewriteRule ^(.+)\.local-d1007\.com/(.*)$ $1/$2 [L]
+
+
+

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %} 
+<div id="page">
+  {% block userprofile_navigation %}{% endblock %}
+  <div id="columnwrap">
+    <div id="content-main">
+      {% block userprofile_content %}{% endblock %}
+    </div>
+  </div>
+</div>
+{% endblock %}

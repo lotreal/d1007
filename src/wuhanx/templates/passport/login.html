@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block page_buttons %}
+{% endblock %}
+
+{% block body %}
+<div id="mainpanel">
+{{ panel_prefix|safe }}
+{% if not logined %}
+<div class="yui-g">
+  <div class="yui-u first">
+    <form id="login_form" method="post" action="/passport/login/?next={{ next }}">
+      <div>
+        <label for="lf_username">用户名:</label>
+        <input type="text" id="lf_username" name="username"/>
+      </div>
+      <div>
+        <label for="lf_password">密码:</label>
+        <input type="password" id="lf_password" name="password"/>
+      </div>
+      <div class="remember" title="为了确保你的信息安全，请不要在网吧或者公共机房选择此项！如果今后要取消此选项，只需点击用户名旁边的“退出”链接即可">
+        <input type="checkbox" value="1" id="lf_remember" name="remember" />
+        <label for="lf_remember">记住登录状态</label>
+      </div>
+      <div class="submit">
+        <!-- <input type="hidden" value="{{ next }}" name="next" id="next"/> -->
+        <input type="submit" value="登 录"/>
+      </div>
+    </form>
+    {% if message %}
+    <div class="message alert">{{ message }}</div>
+    {% endif %}
+    <!-- <p>还没有注册？<a href="#">来注册吧</a>，我们的注册非常简洁，十秒完成!</p> -->
+  </div>
+  <div class="yui-u temp_passport">
+    <h3>暂时不想注册?</h3>
+    当然没问题，我们体贴的提供了<dfn title="主要用于免注册使用客服系统">临时通行证</dfn>为您服务。
+    <div class="ni">
+      <a class="big_button" href="/passport/temp-login/?next={{ next }}"><b>使用临时通行证</b></a>
+
+      <table border="1" class="message">
+        <caption>使用临时通行证的限制</caption>
+        <tr>
+          <th>功能</th>
+          <th>注册用户</th>
+          <th>临时通行证用户</th>
+        </tr>
+        <tr>
+          <td>使用客服系统</td>
+          <td>可以</td>
+          <td>可以</td>
+        </tr>
+        <tr>
+          <td>保存聊天记录</td>
+          <td>可以</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>发表文章、评论</td>
+          <td>可以</td>
+          <td>-</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% else %}
+已经登录
+{% endif %}
+{{ panel_suffix|safe }}
+</div>
+{% endblock %}
+
+
+
+{% block page_javascript %}
+{% endblock %}

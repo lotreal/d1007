@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load iluo_tags %}
+
+{% block style %}
+<style type="text/css">
+{% if twitter.profile_background_image_url %}
+body { background: #3AB54A url('{{ TWEET_URL }}/background/{{ twitter.profile_background_image_url }}') no-repeat fixed center top; }
+{% endif %}
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="tweet">
+  {% include "tweet/profilebox.html" %}
+
+  <div class="content-bubble-arrow"></div>
+
+  <div id="content">
+    <div class="section">
+
+      {% include "tweet/status_update_box.html" %}
+
+      {% include "tweet/timeline_heading.html" %}
+      
+      <ol id="timeline" class="statuses">
+	{% for status in statuses %}
+	{% include "tweet/status.html" %}
+	{% endfor %}
+      </ol>
+
+    </div>
+  </div>
+  <div id="side_base">
+    <div id="side">
+      {% if is_active_user %}
+      {% include "tweet/side_profile.html" %}
+      {% include "tweet/sidebar_menu.html" %}
+      {% include "tweet/following.html" %}
+      {% include "tweet/new_members.html" %}
+      <div id="rssfeed">
+      	<hr/>
+      	<a href="{{ TWEET_URL }}/{{ twitter.screen_name }}/all/rss" class="xref rss profile-rss indented-link" rel="alternate" type="application/rss+xml">RSS feed</a>
+      </div>
+      {% else %}
+      {% include "tweet/new_members.html" %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

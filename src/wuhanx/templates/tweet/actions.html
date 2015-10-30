@@ -1,0 +1,23 @@
+{% if not is_me and is_active_user %}
+<div id="profile_actions">
+  <h2 id="fm_menu" class="sidebar-title"><span>我要</span></h2>
+  <ul class="sidebar-actions">
+    {% if is_follower %}
+    <!-- <li class="message-sidebar-action"> -->
+    <!--   给 {{ twitter.name }} <a href="#direct_messages/create/baiyssy">发送私信</a> -->
+    <!-- </li> -->
+    {% endif %}
+
+    {% if is_blocked %}
+    <li class="block-sidebar-action">
+      将 {{ twitter.name }} <a style="color: grey;" href="{% url destroy_block twitter.id %}">从黑名单中放出</a>
+    </li>
+    {% else %}
+    <li class="block-sidebar-action">
+      将 {{ twitter.name }} <a style="color: grey;" href="{% url create_block twitter.id %}">加入黑名单</a>
+    </li>
+    {% endif %}
+  </ul>
+</div>
+<hr />
+{% endif %}
